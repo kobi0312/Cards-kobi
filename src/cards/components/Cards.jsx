@@ -76,6 +76,17 @@ let cards = [
 //cards = [];
 
 export default function Cards() {
+  const handleDelete = (id) => {
+    console.log("deleting card " + id);
+  };
+
+  const handleLike = (id) => {
+    console.log("like card " + id);
+  };
+
+  const handleEdit = (id) => {
+    console.log("editing card " + id);
+  };
   return (
     <>
       {cards && cards.length === 0 ? (
@@ -85,7 +96,13 @@ export default function Cards() {
       ) : (
         <Container sx={{ display: "flex", flexWrap: "wrap" }}>
           {cards.map((card) => (
-            <CardComponent card={card} key={card._id} />
+            <CardComponent
+              card={card}
+              key={card._id}
+              handleDelete={handleDelete}
+              handleLike={handleLike}
+              handleEdit={handleEdit}
+            />
           ))}
         </Container>
       )}

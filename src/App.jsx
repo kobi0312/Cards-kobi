@@ -1,11 +1,13 @@
 import Cards from "./cards/components/Cards";
-import GridExample from "./sandbox/GridExample";
+import Counter from "./sandbox/Counter";
+import EventComponent from "./sandbox/EventComponent";
+import EventComponent2 from "./sandbox/EventComponent2";
+import MyUseStateComponent from "./sandbox/MyUseStateComponent";
 
 function App() {
   return (
     <div>
-      <h1>Welcome to my website!</h1>
-      <Cards />
+      <Counter />
     </div>
   );
 }
