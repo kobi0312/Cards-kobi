@@ -1,7 +1,7 @@
 import CardComponent from "./card/CardComponent";
 import { Container, Typography } from "@mui/material";
 
-const cards = [
+let cards = [
   {
     _id: "63765801e20ed868a69a62c4",
     title: "first",
@@ -73,22 +73,22 @@ const cards = [
   },
 ];
 
-//const cards = [];
+//cards = [];
 
 export default function Cards() {
-  if (cards && cards.length === 0) {
-    return (
-      <Typography m={2}>
-        Oops... it seems there are no business cards to display
-      </Typography>
-    );
-  }
-
   return (
-    <Container sx={{ display: "flex", flexWrap: "wrap" }}>
-      {cards.map((card) => (
-        <CardComponent card={card} key={card._id} />
-      ))}
-    </Container>
+    <>
+      {cards && cards.length === 0 ? (
+        <Typography m={2}>
+          Oops... it seems there are no business cards to display
+        </Typography>
+      ) : (
+        <Container sx={{ display: "flex", flexWrap: "wrap" }}>
+          {cards.map((card) => (
+            <CardComponent card={card} key={card._id} />
+          ))}
+        </Container>
+      )}
+    </>
   );
 }
