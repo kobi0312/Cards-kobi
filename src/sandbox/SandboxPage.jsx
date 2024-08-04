@@ -1,10 +1,13 @@
-import React from "react";
-import ParentComponent from "./ParentComponent";
-import NavBarLink from "../routes/components/NavBarLink";
-import { Link } from "react-router-dom";
-import NavBarItem from "../routes/components/NavBarItem";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
+import MyButton from "./propsAndChildren/MyButton";
+import MyMessage from "./propsAndChildren/MyMessage";
+import Counter from "./states/Counter";
+import Countries from "./effects/Countries";
 
 export default function SandboxPage() {
-  return <div></div>;
+  return (
+    <div>
+      <Countries />
+    </div>
+  );
 }
