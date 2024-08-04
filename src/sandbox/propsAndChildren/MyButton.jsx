@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-export default function MyButton({ children }) {
+export default function MyButton({ children, onClick }) {
   return (
     <Button
       sx={{
@@ -9,6 +9,7 @@ export default function MyButton({ children }) {
         backgroundColor: "#4caf50",
         "&:hover": { backgroundColor: "#45a049" },
       }}
+      onClick={onClick}
     >
       {children}
     </Button>
