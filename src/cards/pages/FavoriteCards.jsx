@@ -8,7 +8,7 @@ export default function FavoriteCards() {
         title={"Favorite cards"}
         subtitle={"Welcome to favorite cards page"}
       />
-      Hello
+      Here you will find the favorite cards
     </>
   );
 }

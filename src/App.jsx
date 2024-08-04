@@ -10,15 +10,17 @@ import MyFormExample from "./sandbox/MyFormExample";
 
 import MyUseStateComponent from "./sandbox/MyUseStateComponent";
 import Todolist from "./sandbox/Todolist";
+import ChildComponent from "./sandbox/ChildComponent";
+import Layout from "./layout/Layout";
 
 function App() {
   return (
     <BrowserRouter>
-      <Router />
+      <Layout>
+        <Router />
+      </Layout>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-//npm i react-router-dom

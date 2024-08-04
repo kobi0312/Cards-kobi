@@ -6,6 +6,8 @@ import ErrorPage from "../pages/ErrorPage";
 import ROUTES from "./routesModel";
 import FavoriteCards from "../cards/pages/FavoriteCards";
 import LoginPage from "../users/pages/LoginPage";
+import MyCardsPage from "../cards/pages/MyCardsPage";
+import SandboxPage from "../sandbox/SandboxPage";
 
 export default function Router() {
   return (
@@ -15,6 +17,8 @@ export default function Router() {
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />
       <Route path={ROUTES.FAV_CARDS} element={<FavoriteCards />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route path={ROUTES.MY_CARDS} element={<MyCardsPage />} />
+      <Route path={ROUTES.SANDBOX} element={<SandboxPage />} />
 
       <Route path="*" element={<ErrorPage />} />
     </Routes>
