@@ -9,7 +9,9 @@ export default function ErrorPage() {
   return (
     <div>
       <PageHeader title="Error 404" subtitle="page not found" />
+
       <Button onClick={() => navigate(ROUTES.ROOT)}>Return to Home page</Button>
+
       <Link to={ROUTES.ROOT}>Home</Link>
     </div>
   );
