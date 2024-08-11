@@ -17,7 +17,7 @@ export default function Timer() {
   return (
     <div>
       <Typography>{counter}</Typography>
-      <Button onClick={() => setIsActive(true)}>
+      <Button onClick={() => setIsActive((prev) => !prev)}>
         {isActive ? "Stop" : "Start"}
       </Button>
       <Button
