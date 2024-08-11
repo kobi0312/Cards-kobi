@@ -3,11 +3,14 @@ import PageHeader from "../../components/PageHeader";
 import Cards from "../components/Cards";
 import axios from "axios";
 import CardsFeedback from "../components/CardsFeedback";
+import { useSnack } from "../../providers/SnackbarProvider";
 
 export default function CardsPage() {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
+
+  const setSnack = useSnack();
 
   useEffect(() => {
     const getAllCards = async () => {
@@ -16,6 +19,7 @@ export default function CardsPage() {
           "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards"
         );
         setCards(response.data);
+        setSnack("success", "All cards are here!");
       } catch (err) {
         setError(err.message);
       }
