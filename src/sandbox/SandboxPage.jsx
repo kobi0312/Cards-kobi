@@ -5,11 +5,12 @@ import Counter from "./states/Counter";
 import Countries from "./effects/Countries";
 import GrandParent from "./context/GrandParent";
 import Timer from "./effects/Timer";
+import FormExample from "./forms/FormExample";
 
 export default function SandboxPage() {
   return (
     <div>
-      <Timer />
+      <FormExample />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default function useCards() {
   const [cards, setCards] = useState([]);
+  const [card, setCard] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
 
@@ -22,6 +23,19 @@ export default function useCards() {
     setIsLoading(false);
   }, []);
 
+  const getCardById = useCallback(async (id) => {
+    try {
+      const response = await axios.get(
+        `https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/${id}`
+      );
+      const data = response.data;
+      setCard(data);
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
+  }, []);
+
   const handleDelete = useCallback((id) => {
     console.log("Card " + id + " deleted");
   }, []);
@@ -30,5 +44,14 @@ export default function useCards() {
     console.log("Card " + id + " has been liked");
   }, []);
 
-  return { cards, error, isLoading, getAllCards, handleDelete, handleLike };
+  return {
+    cards,
+    card,
+    error,
+    isLoading,
+    getAllCards,
+    getCardById,
+    handleDelete,
+    handleLike,
+  };
 }

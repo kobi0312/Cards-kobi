@@ -10,24 +10,19 @@ import {
   Typography,
 } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
+import useCards from "../hooks/useCards";
+import Error from "../../components/Error";
 
 export default function CardDetailsPage() {
-  const [card, setCard] = useState();
+  const { card, isLoading, error, getCardById } = useCards();
   const { id } = useParams();
 
   useEffect(() => {
-    const getCardDetails = async () => {
-      const response = await fetch(
-        `https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/${id}`
-      );
-      const data = await response.json();
-      setCard(data);
-    };
+    getCardById(id);
+  }, [id]);
 
-    getCardDetails();
-  }, []);
-
-  if (!card) return <Spinner />;
+  if (isLoading) return <Spinner />;
+  if (error) return <Error errorMessage={error} />;
 
   return (
     <Container sx={{ mt: 4 }}>
