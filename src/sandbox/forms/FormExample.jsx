@@ -2,6 +2,8 @@ import { Button, Container, TextField } from "@mui/material";
 import Joi from "joi";
 import React, { useCallback, useState } from "react";
 import useForm from "../../forms/hooks/useForm";
+import Form from "../../forms/components/Form";
+import Input from "../../forms/components/Input";
 
 const initialForm = {
   firstName: "",
@@ -17,11 +19,8 @@ const printSomething = (something) => {
 };
 
 export default function FormExample() {
-  const { data, errors, handleChange, validateForm, onSubmit } = useForm(
-    initialForm,
-    schema,
-    printSomething
-  );
+  const { data, errors, handleChange, validateForm, onSubmit, handleReset } =
+    useForm(initialForm, schema, printSomething);
 
   return (
     <Container
@@ -32,26 +31,29 @@ export default function FormExample() {
         alignItems: "center",
       }}
     >
-      <TextField
-        label="first name"
-        name="firstName"
-        onChange={handleChange}
-        value={data.firstName}
-        error={Boolean(errors.firstName)}
-        helperText={errors.firstName}
-      />
-      <TextField
-        label="last name"
-        name="lastName"
-        onChange={handleChange}
-        value={data.lastName}
-        error={Boolean(errors.lastName)}
-        helperText={errors.lastName}
-      />
+      <Form
+        title="Example form"
+        onSubmit={onSubmit}
+        onReset={handleReset}
+        styles={{ maxWidth: "450px" }}
+        validateForm={validateForm}
+      >
+        <Input
+          label="first name"
+          name="firstName"
+          data={data}
+          error={errors.firstName}
+          onChange={handleChange}
+        />
 
-      <Button disabled={!validateForm()} onClick={onSubmit}>
-        Submit
-      </Button>
+        <Input
+          label="last name"
+          name="lastName"
+          data={data}
+          error={errors.lastName}
+          onChange={handleChange}
+        />
+      </Form>
     </Container>
   );
 }
