@@ -1,6 +1,7 @@
 import { Button, Container, TextField } from "@mui/material";
 import Joi from "joi";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import useForm from "../../forms/hooks/useForm";
 
 const initialForm = {
   firstName: "",
@@ -11,42 +12,16 @@ const schema = {
   firstName: Joi.string().min(2),
   lastName: Joi.string().min(2).max(12),
 };
+const printSomething = (something) => {
+  console.log(something);
+};
 
 export default function FormExample() {
-  const [data, setData] = useState(initialForm);
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    let value = e.target.value;
-    let name = e.target.name;
-
-    const errorMessage = validateProperty(name, value);
-
-    if (errorMessage) {
-      setErrors((prev) => ({ ...prev, [name]: errorMessage }));
-    } else {
-      setErrors((prev) => {
-        let obj = { ...prev };
-        delete obj[name];
-        return obj;
-      });
-    }
-
-    setData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const validateProperty = (name, value) => {
-    let joiSchema = Joi.object({ [name]: schema[name] });
-    let { error } = joiSchema.validate({ [name]: value });
-    return error ? error.details[0].message : null;
-  };
-
-  const validateForm = () => {
-    const joiSchema = Joi.object(schema);
-    const { error } = joiSchema.validate(data);
-    if (error) return false;
-    return true;
-  };
+  const { data, errors, handleChange, validateForm, onSubmit } = useForm(
+    initialForm,
+    schema,
+    printSomething
+  );
 
   return (
     <Container
@@ -74,7 +49,9 @@ export default function FormExample() {
         helperText={errors.lastName}
       />
 
-      <Button disabled={!validateForm()}>Submit</Button>
+      <Button disabled={!validateForm()} onClick={onSubmit}>
+        Submit
+      </Button>
     </Container>
   );
 }
