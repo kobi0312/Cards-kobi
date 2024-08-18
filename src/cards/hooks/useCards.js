@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useSnack } from "../../providers/SnackbarProvider";
 import axios from "axios";
+import useAxios from "../../hooks/useAxios";
 
 export default function useCards() {
   const [cards, setCards] = useState([]);
@@ -9,6 +10,8 @@ export default function useCards() {
   const [error, setError] = useState();
 
   const setSnack = useSnack();
+
+  useAxios();
 
   const getAllCards = useCallback(async () => {
     try {

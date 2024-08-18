@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import ROUTES from "../../routes/routesModel";
-import { useUser } from "../providers/UserProvider";
+import { useCurrentUser } from "../providers/UserProvider";
 import useForm from "../../forms/hooks/useForm";
 import initialLoginForm from "../helpers/initialForms/initialLoginForm";
 import loginSchema from "../models/loginSchema";
@@ -12,16 +12,16 @@ import Input from "../../forms/components/Input";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-
-const handleLogin = async (userLogin) => {
-  console.log(userLogin);
-};
+import useUsers from "../hooks/useUsers";
+import { useSnack } from "../../providers/SnackbarProvider";
 
 export default function LoginPage() {
+  const { isLoading, error, handleLogin } = useUsers();
+
   const { data, errors, handleChange, handleReset, validateForm, onSubmit } =
     useForm(initialLoginForm, loginSchema, handleLogin);
 
-  const { user } = useUser();
+  const { user } = useCurrentUser();
 
   if (user) return <Navigate to={ROUTES.ROOT} replace />;
 

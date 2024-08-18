@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import ROUTES from "../../routes/routesModel";
-import { useUser } from "../providers/UserProvider";
+import { useCurrentUser } from "../providers/UserProvider";
 import useForm from "../../forms/hooks/useForm";
 import initialSignupForm from "../helpers/initialForms/initialSignupForm";
 import signupSchema from "../models/signupSchema";
@@ -23,7 +23,7 @@ export default function SignupPage() {
     handleChangeCheckBox,
   } = useForm(initialSignupForm, signupSchema, handleSignup);
 
-  const { user } = useUser();
+  const { user } = useCurrentUser();
 
   if (user) return <Navigate to={ROUTES.ROOT} replace />;
 
