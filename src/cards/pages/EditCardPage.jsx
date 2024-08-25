@@ -7,6 +7,8 @@ import useForm from "../../forms/hooks/useForm";
 import initialCardForm from "../helpers/initialForms/initialCardForm";
 import cardSchema from "../models/cardSchema";
 import mapCardToModel from "../helpers/normalization/mapToModel";
+import normalizeCard from "../helpers/normalization/normalizeCard";
+import CardComponent from "../components/card/CardComponent";
 
 export default function EditCardPage() {
   const { id } = useParams();
@@ -20,7 +22,7 @@ export default function EditCardPage() {
     validateForm,
     onSubmit,
   } = useForm(initialCardForm, cardSchema, (data) =>
-    handleUpdateCard(card._id, data)
+    handleUpdateCard(id, data)
   );
 
   useEffect(() => {
@@ -50,6 +52,14 @@ export default function EditCardPage() {
           onInputChange={handleChange}
           data={data}
         />
+        {card && (
+          <CardComponent
+            card={{ _id: id, ...normalizeCard(data) }}
+            handleDelete={() => {}}
+            handleEdit={() => {}}
+            handleLike={() => {}}
+          />
+        )}
       </Container>
     </div>
   );
