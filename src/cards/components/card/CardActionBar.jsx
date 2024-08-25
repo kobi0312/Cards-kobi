@@ -5,6 +5,8 @@ import CallIcon from "@mui/icons-material/Call";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Box, IconButton, CardActions } from "@mui/material";
 import { useCurrentUser } from "../../../users/providers/UserProvider";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../../routes/routesModel";
 
 export default function CardActionBar({
   cardId,
@@ -13,7 +15,7 @@ export default function CardActionBar({
   handleLike,
 }) {
   const user = useCurrentUser();
-
+  const navigate = useNavigate();
   return (
     <CardActions sx={{ justifyContent: "space-between" }}>
       <Box>
@@ -21,7 +23,7 @@ export default function CardActionBar({
           <DeleteIcon />
         </IconButton>
 
-        <IconButton onClick={() => handleEdit(cardId)}>
+        <IconButton onClick={() => navigate(ROUTES.EDIT_CARD + "/" + cardId)}>
           <ModeEditIcon />
         </IconButton>
       </Box>

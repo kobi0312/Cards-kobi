@@ -2,6 +2,8 @@ import { useCallback, useState } from "react";
 import { useSnack } from "../../providers/SnackbarProvider";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import { editCard } from "../services/cardsApiService";
+import { useNavigate } from "react-router-dom";
 
 export default function useCards() {
   const [cards, setCards] = useState([]);
@@ -10,7 +12,7 @@ export default function useCards() {
   const [error, setError] = useState();
 
   const setSnack = useSnack();
-
+  const navigate = useNavigate();
   useAxios();
 
   const getAllCards = useCallback(async () => {
@@ -47,6 +49,25 @@ export default function useCards() {
     console.log("Card " + id + " has been liked");
   }, []);
 
+  const handleUpdateCard = useCallback(
+    async (cardId, cardFromClient) => {
+      setIsLoading(true);
+
+      try {
+        const card = await editCard(cardId, normalizeCard(cardFromClient));
+        setCard(card);
+        setSnack("success", "The business card has been successfully updated");
+        setTimeout(() => {
+          navigate(ROUTES.ROOT);
+        }, 1000);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    },
+    [setSnack, navigate]
+  );
+
   return {
     cards,
     card,
@@ -56,5 +77,6 @@ export default function useCards() {
     getCardById,
     handleDelete,
     handleLike,
+    handleUpdateCard,
   };
 }
