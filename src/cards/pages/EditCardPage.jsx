@@ -24,12 +24,10 @@ export default function EditCardPage() {
   );
 
   useEffect(() => {
-    getCardById(id);
-  }, []);
-
-  useEffect(() => {
     if (card) {
       setData(mapCardToModel(card));
+    } else {
+      getCardById(id);
     }
   }, [card]);
 
