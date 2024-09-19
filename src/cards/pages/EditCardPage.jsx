@@ -1,66 +1,92 @@
-import { Container } from "@mui/material";
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import CardForm from "../components/CardForm";
-import useCards from "../hooks/useCards";
-import useForm from "../../forms/hooks/useForm";
-import initialCardForm from "../helpers/initialForms/initialCardForm";
-import cardSchema from "../models/cardSchema";
-import mapCardToModel from "../helpers/normalization/mapToModel";
-import normalizeCard from "../helpers/normalization/normalizeCard";
-import CardComponent from "../components/card/CardComponent";
+import React, { useEffect } from 'react'
+import { useCurrentUser } from '../../users/providers/UserProvider';
+import useCards from '../hooks/useCards';
+import { useNavigate, useParams } from 'react-router-dom';
+import initialCardForm from '../helpers/initialForms/initialCardForm';
+import cardSchema from '../models/cardSchema';
+import mapCardToModel from '../helpers/normalization/mapCardToModel';
+import useForm from '../../forms/hooks/useForm';
+import Spinner from '../../components/Spinner';
+import Error from '../../components/Error';
+import ROUTES from '../../routes/routesModel';
+import CardForm from '../components/CardForm';
+import { Container } from '@mui/material';
+import normalizeCard from '../helpers/normalization/normalizeCard';
 
 export default function EditCardPage() {
-  const { id } = useParams();
-  const { handleUpdateCard, getCardById, card } = useCards();
-  const {
-    data,
-    errors,
-    setData,
-    handleChange,
-    handleReset,
-    validateForm,
-    onSubmit,
-  } = useForm(initialCardForm, cardSchema, (data) =>
-    handleUpdateCard(id, data)
-  );
 
-  useEffect(() => {
-    if (card) {
-      setData(mapCardToModel(card));
-    } else {
-      getCardById(id);
-    }
-  }, [card]);
+    const { handleEdit, getCardById, card, isLoading, error } = useCards();
 
-  return (
-    <div>
-      <Container
-        sx={{
-          paddingTop: 8,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CardForm
-          title="edit card"
-          onSubmit={onSubmit}
-          onReset={handleReset}
-          errors={errors}
-          validateForm={validateForm}
-          onInputChange={handleChange}
-          data={data}
-        />
-        {card && (
-          <CardComponent
-            card={{ _id: id, ...normalizeCard(data) }}
-            handleDelete={() => {}}
-            handleEdit={() => {}}
-            handleLike={() => {}}
-          />
-        )}
-      </Container>
-    </div>
-  );
+    const { user } = useCurrentUser();
+    const { id } = useParams();
+
+    const navigate = useNavigate();
+
+    const { data, setData, errors, onSubmit, handleChange, handleReset, validateForm } = useForm(
+        initialCardForm,
+        cardSchema,
+        async () => {
+            await handleEdit(id, {
+                ...normalizeCard(data),
+                bizNumber: card.bizNumber,
+                user_id: card.user_id,
+            });
+            navigate(ROUTES.MY_CARDS);
+        });
+
+
+
+    useEffect(() => {
+        getCardById(id).then((data) => {
+            if (user && (user.isBusiness && user._id === data.user_id || user.isAdmin)) {
+                const modelCard = mapCardToModel(data);
+                setData(modelCard);
+            } else {
+                navigate(ROUTES.ROOT);
+            }
+        });
+    }, [getCardById, setData, id]);
+
+
+
+    if (isLoading) return <Spinner />;
+    if (error) return <Error errorMessage={error} />;
+
+
+
+    /*  useEffect(() => {
+ if (user && (user.isBusiness && user._id === card.user_id || user.isAdmin)) {
+             const modelCard = mapCardToModel(card);
+             setData(modelCard);
+             console.log(data);
+         } else {
+             navigate(ROUTES.CARDS);
+         }
+         
+     }, []); */
+
+
+
+
+
+    return (
+        <Container
+            sx={{
+                paddingTop: 8,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
+            <CardForm
+                title="Edit Card"
+                onSubmit={onSubmit}
+                onReset={handleReset}
+                errors={errors}
+                data={data}
+                onInputChange={handleChange}
+                validateForm={validateForm}
+            />
+        </Container>
+    )
 }

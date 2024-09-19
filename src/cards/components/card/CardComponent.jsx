@@ -1,6 +1,7 @@
+// src/cards/components/card/CardComponent.jsx
 import * as React from "react";
 import Card from "@mui/material/Card";
-import { CardActionArea, CardHeader } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 import CardHeaderComponent from "./CardHeaderComponent";
 import CardBody from "./CardBody";
 import CardActionBar from "./CardActionBar";
@@ -14,8 +15,20 @@ export default function CardComponent({
   handleLike,
 }) {
   const navigate = useNavigate();
+
   return (
-    <Card sx={{ width: 250, m: 2 }}>
+    <Card
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: 250,
+        m: 2,
+        transition: "transform 0.3s ease-in-out", // Smooth transition for hover
+        "&:hover": {
+          transform: "scale(0.95)", // Shrink the card on hover
+        },
+      }}
+    >
       <CardActionArea
         onClick={() => navigate(ROUTES.CARD_INFO + "/" + card._id)}
       >
@@ -25,7 +38,6 @@ export default function CardComponent({
           title={card.title}
           subtitle={card.subtitle}
         />
-
         <CardBody
           phone={card.phone}
           address={card.address}
@@ -34,6 +46,8 @@ export default function CardComponent({
       </CardActionArea>
       <CardActionBar
         cardId={card._id}
+        cardUserId={card.user_id}
+        likes={card.likes}
         handleDelete={handleDelete}
         handleLike={handleLike}
         handleEdit={handleEdit}

@@ -19,13 +19,13 @@ export default function CardDetailsPage() {
 
   useEffect(() => {
     getCardById(id);
-  }, [id]);
+  }, [id, getCardById]);
 
   if (isLoading) return <Spinner />;
   if (error) return <Error errorMessage={error} />;
 
   return (
-    <Container sx={{ mt: 4 }}>
+    <Container>
       <PageHeader
         title="Card Details"
         subtitle="Here you can find detailed information about the card"

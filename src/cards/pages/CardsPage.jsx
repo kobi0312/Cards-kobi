@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import PageHeader from "../../components/PageHeader";
-import Cards from "../components/Cards";
-import axios from "axios";
 import CardsFeedback from "../components/CardsFeedback";
-import { useSnack } from "../../providers/SnackbarProvider";
 import useCards from "../hooks/useCards";
+import CreateNewCardButton from "../components/card/CreateNewCardButton";
 
 export default function CardsPage() {
-  const { cards, error, isLoading, getAllCards, handleDelete, handleLike } =
+  const { error, isLoading, filteredCards, getAllCards, handleDelete, handleLike, handleEdit } =
     useCards();
 
   useEffect(() => {
     getAllCards();
   }, []);
+
+  const onDelete = useCallback(async (id) => {
+    await handleDelete(id);
+    getAllCards();
+  }, [handleDelete, getAllCards]);
 
   return (
     <div>
@@ -21,12 +24,14 @@ export default function CardsPage() {
         subtitle="On this page you can find all bussines cards from all categories"
       />
       <CardsFeedback
-        cards={cards}
+        cards={filteredCards}
         isLoading={isLoading}
         error={error}
-        handleDelete={handleDelete}
+        handleDelete={onDelete}
         handleLike={handleLike}
+        handleEdit={handleEdit}
       />
+      <CreateNewCardButton />
     </div>
   );
 }

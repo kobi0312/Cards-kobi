@@ -12,14 +12,24 @@ import Input from "../../forms/components/Input";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import useUsers from "../hooks/useUsers";
 import { useSnack } from "../../providers/SnackbarProvider";
+import useUsers from "../hooks/useUsers";
+
 
 export default function LoginPage() {
+
   const { isLoading, error, handleLogin } = useUsers();
 
   const { data, errors, handleChange, handleReset, validateForm, onSubmit } =
     useForm(initialLoginForm, loginSchema, handleLogin);
+
+  const setSnack = useSnack();
+
+  useEffect(() => {
+    if (error) {
+      setSnack("error", error);
+    }
+  }, [error]);
 
   const { user } = useCurrentUser();
 

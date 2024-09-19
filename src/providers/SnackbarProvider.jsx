@@ -27,14 +27,14 @@ export default function SnackbarProvider({ children }) {
       </SnackbarContext.Provider>
 
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={isSnackOpen}
         onClose={() => {
           setOpenSnack(false);
         }}
-        autoHideDuration={5000}
+        autoHideDuration={2500}
       >
-        <Alert severity={snackColor} variant={snackVariant}>
+        <Alert severity={snackColor} variant={snackVariant} onClose={() => setOpenSnack(false)}>
           {snackMessage}
         </Alert>
       </Snackbar>
