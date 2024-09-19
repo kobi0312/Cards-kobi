@@ -38,6 +38,11 @@ Like cards and view detailed card information.
 Project Structure
 plaintext
 Copy code
+
+
+
+
+
 src/
 ├── app.css                     # Global CSS
 ├── App.jsx                     # Main app component
@@ -52,6 +57,10 @@ src/
 ├── layout/                     # Layout components (Header, Footer, etc.)
 ├── routes/                     # App routing configuration
 └── users/                      # User-related components and pages
+
+
+
+
 Features
 Add, Edit, Delete Cards: Fully functional CRUD operations for business cards.
 Card Details: View additional information for each card.
