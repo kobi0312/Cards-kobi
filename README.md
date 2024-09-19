@@ -1,47 +1,46 @@
 Cards Kobi
+
+
+
 This project is a React-based business card management system that allows users to view, add, edit, and delete business cards. The application integrates with a backend API for managing card data and is styled using Material-UI.
 
-Table of Contents
+* Table of Contents
+* Installation
+* Usage
+* Project Structure
+* Features
+* Technologies
+* Contributing
+* License
+
 Installation
-Usage
-Project Structure
-Features
-Technologies
-Contributing
-License
-Installation
-Clone the repository:
-bash
-Copy code
+
+1. Clone the repository:
+
 git clone https://github.com/kobi0312/Cards-kobi.git
-Navigate to the project directory:
-bash
-Copy code
+
+2. Navigate to the project directory:
+
 cd Cards-kobi
-Install the dependencies:
-bash
-Copy code
+
+3. Install the dependencies:
+
 npm install
-Start the development server:
-bash
-Copy code
+
+4. Start the development server:
 npm run dev
+
 The app will be accessible at http://localhost:3000.
 
 Usage
-Once the application is running, you can:
+* Once the application is running, you can:
+* View all business cards.
+* Add a new card by clicking "Add New Card".
+* Edit or delete cards.
+* Like cards and view detailed card information.
 
-View all business cards.
-Add a new card by clicking "Add New Card".
-Edit or delete cards.
-Like cards and view detailed card information.
+
 Project Structure
-plaintext
-Copy code
-
-
-
-
 
 src/
 ├── app.css                     # Global CSS
@@ -59,25 +58,29 @@ src/
 └── users/                      # User-related components and pages
 
 
-
-
 Features
-Add, Edit, Delete Cards: Fully functional CRUD operations for business cards.
-Card Details: View additional information for each card.
-Responsive Design: Styled with Material-UI for a modern and responsive user experience.
+
+* Add, Edit, Delete Cards: Fully functional CRUD operations for business cards.
+* Card Details: View additional information for each card.
+* Responsive Design: Styled with Material-UI for a modern and responsive user experience.
+
 Technologies
-React: Frontend library for building user interfaces.
-Material-UI: UI component library for styling the app.
-Axios: HTTP client for API requests.
-React Router: For handling navigation and routing.
+
+* React: Frontend library for building user interfaces.
+* Material-UI: UI component library for styling the app.
+* Axios: HTTP client for API requests.
+* React Router: For handling navigation and routing.
+
 Contributing
 Contributions are welcome! To contribute:
 
-Fork the repository.
-Create a new branch: git checkout -b feature-branch.
-Commit your changes: git commit -m 'Add a feature'.
-Push the branch: git push origin feature-branch.
-Submit a pull request.
+1. Fork the repository.
+2. Create a new branch: git checkout -b feature-branch.
+3. Commit your changes: git commit -m 'Add a feature'.
+4. Push to your branch: git push origin feature-branch.
+5. Submit a pull request.
+
 License
+
 This project is licensed under the MIT License.
 
