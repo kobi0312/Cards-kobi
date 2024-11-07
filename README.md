@@ -1,86 +1,153 @@
-Cards Kobi
+Cards Management Application
+This project is a business card management application that allows users to create, view, update, and delete business cards. It consists of a backend server for handling API requests and a frontend client for user interaction.
 
-
-
-This project is a React-based business card management system that allows users to view, add, edit, and delete business cards. The application integrates with a backend API for managing card data and is styled using Material-UI.
-
-* Table of Contents
-* Installation
-* Usage
-* Project Structure
-* Features
-* Technologies
-* Contributing
-* License
-
+Prerequisites
+Node.js (version 14 or above)
+MongoDB (running locally or on a service like MongoDB Atlas)
+npm (Node Package Manager, usually included with Node.js)
 Installation
-
 1. Clone the repository:
+bash
+Copy code
+git clone <repository URL>
+2. Navigate to the main project folder:
+bash
+Copy code
+cd project-folder
+Running the Server
+Navigate to the server directory:
 
-git clone https://github.com/kobi0312/Cards-kobi.git
+bash
+Copy code
+cd server
+Install the necessary packages:
 
-2. Navigate to the project directory:
-
-cd Cards-kobi
-
-3. Install the dependencies:
-
+bash
+Copy code
 npm install
+Start the server:
 
-4. Start the development server:
-npm run dev
+bash
+Copy code
+node server.js
+By default, the server runs on http://localhost:5000.
 
-The app will be accessible at http://localhost:3000.
+Running the Client
+Navigate to the client directory:
 
-Usage
-* Once the application is running, you can:
-* View all business cards.
-* Add a new card by clicking "Add New Card".
-* Edit or delete cards.
-* Like cards and view detailed card information.
+bash
+Copy code
+cd client
+Install the necessary packages:
 
+bash
+Copy code
+npm install
+Start the client:
+
+bash
+Copy code
+npm start
+By default, the client runs on http://localhost:3000 (or another available port if 3000 is in use).
 
 Project Structure
+bash
+Copy code
+project-folder/
+├── server/
+│   ├── models/
+│   │   └── Card.js         # Mongoose schema for card documents
+│   ├── server.js           # Main server file with API routes
+│   └── .env                # Environment variables for the server
+└── src/
+    ├── cards/
+    │   ├── components/     # Card-related components
+    │   └── services/       # API services for cards
+    ├── users/              # User-related components and services
+    ├── App.jsx             # Main React component
+    └── ...
+Environment Variables
+Create a .env file in the server directory with the following values:
 
-src/
-├── app.css                     # Global CSS
-├── App.jsx                     # Main app component
-├── cards/                      # Card-related components, helpers, hooks, and pages
-│   ├── components/             
-│   │   ├── card/               # Individual card components (CardBody, CardActionBar, etc.)
-│   │   ├── CardForm.jsx        # Form for creating/editing cards
-│   │   ├── Cards.jsx           # Component that renders all cards
-│   │   └── CardsFeedback.jsx   # Feedback component for displaying messages/errors
-│   ├── hooks/                  # Custom hooks for managing card state
-│   └── pages/                  # Card-related pages (CardDetailsPage, CardsPage, etc.)
-├── layout/                     # Layout components (Header, Footer, etc.)
-├── routes/                     # App routing configuration
-└── users/                      # User-related components and pages
+plaintext
+Copy code
+MONGODB_URI=mongodb://localhost:27017/cardsDB  
+PORT=5000  
+JWT_SECRET=your-secret-key  
+REACT_APP_BASE_URL=http://localhost:5000
+MONGODB_URI: MongoDB connection string.
+PORT: Port on which the server will run.
+JWT_SECRET: Secret key for JWT tokens.
+REACT_APP_BASE_URL: Base URL for API requests from the client.
+API Documentation
+API Endpoints
+GET /cards
+Description: Returns a list of all cards.
 
+Response:
 
-Features
+json
+Copy code
+[
+  {
+    "_id": "12345",
+    "title": "Business Card",
+    "description": "Description here",
+    "phone": "123-456-7890",
+    "address": "123 Business St",
+    "cardNumber": 1,
+    "imageUrl": "http://image.url"
+  }
+]
+POST /cards
+Description: Creates a new card.
 
-* Add, Edit, Delete Cards: Fully functional CRUD operations for business cards.
-* Card Details: View additional information for each card.
-* Responsive Design: Styled with Material-UI for a modern and responsive user experience.
+Request Body:
 
-Technologies
+json
+Copy code
+{
+  "title": "My Card",
+  "description": "Description here",
+  "phone": "123-456-7890",
+  "address": "123 Business St",
+  "cardNumber": 1,
+  "imageUrl": "http://image.url"
+}
+Response: Returns the newly created card.
 
-* React: Frontend library for building user interfaces.
-* Material-UI: UI component library for styling the app.
-* Axios: HTTP client for API requests.
-* React Router: For handling navigation and routing.
+GET /cards/:id
+Description: Retrieves a single card by ID.
 
-Contributing
-Contributions are welcome! To contribute:
+Response:
 
-1. Fork the repository.
-2. Create a new branch: git checkout -b feature-branch.
-3. Commit your changes: git commit -m 'Add a feature'.
-4. Push to your branch: git push origin feature-branch.
-5. Submit a pull request.
+json
+Copy code
+{
+  "_id": "12345",
+  "title": "Business Card",
+  "description": "Description here",
+  "phone": "123-456-7890",
+  "address": "123 Business St",
+  "cardNumber": 1,
+  "imageUrl": "http://image.url"
+}
+PUT /cards/:id
+Description: Updates an existing card by ID.
+Request Body: Similar to the POST /cards body.
+Response: Returns the updated card.
+DELETE /cards/:id
+Description: Deletes a card by ID.
+Response: Returns the deleted card.
+Troubleshooting
+Common Issues
+Issue: EADDRINUSE: address already in use
 
-License
+Solution: Make sure no other process is using the same port. On Windows, you can find and kill the process with the following commands:
+bash
+Copy code
+netstat -ano | findstr :5000
+taskkill /PID <process_id> /F
+Issue: MONGODB_URI or other environment variables showing as undefined
 
-This project is licensed under the MIT License.
-
+Solution: Ensure .env file is in the server folder and that variables are correctly defined in it. Also, ensure dotenv is correctly configured in server.js.

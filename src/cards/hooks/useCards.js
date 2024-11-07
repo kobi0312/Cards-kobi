@@ -20,7 +20,7 @@ export default function useCards() {
 
   useAxios();
 
-  const API_URL = "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards";
+  const API_URL = "http://localhost:5000/cards";
 
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "");

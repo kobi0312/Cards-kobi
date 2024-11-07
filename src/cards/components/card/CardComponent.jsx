@@ -32,21 +32,21 @@ export default function CardComponent({
         onClick={() => navigate(ROUTES.CARD_INFO + "/" + card._id)}
       >
         <CardHeaderComponent
-          image={card.image.url}
-          alt={card.image.alt}
-          title={card.title}
-          subtitle={card.subtitle}
+          image={card?.image?.url || "default-image-url.jpg"}
+          alt={card?.image?.alt || "Default Alt Text"}
+          title={card?.title || "No Title"}
+          subtitle={card?.subtitle || "No Subtitle"}
         />
         <CardBody
-          phone={card.phone}
-          address={card.address}
-          bizNumber={card.bizNumber}
+          phone={card?.phone || "No Phone"}
+          address={card?.address || "No Address"}
+          bizNumber={card?.bizNumber || "No Business Number"}
         />
       </CardActionArea>
       <CardActionBar
-        cardId={card._id}
-        cardUserId={card.user_id}
-        likes={card.likes}
+        cardId={card?._id}
+        cardUserId={card?.user_id}
+        likes={card?.likes || []}
         handleDelete={handleDelete}
         handleLike={handleLike}
         handleEdit={handleEdit}

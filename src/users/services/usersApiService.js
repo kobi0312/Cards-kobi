@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users";
+const apiUrl = "http://localhost:5000/users";
 
 export const login = async (userLogin) => {
     try {
